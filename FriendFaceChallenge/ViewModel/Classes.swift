@@ -35,20 +35,39 @@ class Users: ObservableObject, Codable {
     }
 
     func fetchList() {
-        var usersArray = [User]()
+//        var usersArray = [User]()
+//
+//        let url = URL(string: "https://www.hackingwithswift.com/samples/friendface.json")!
+//        if let usersJSONArray = try? Data(contentsOf: url) {
+//            do {
+//                usersArray = try JSONDecoder().decode([User].self, from: usersJSONArray)
+//            } catch {
+//                print("This was the error: \(error.localizedDescription)")
+//            }
+//        } else {
+//            print("Failed fetching usersJSON")
+//        }
+//
+//        self.users = usersArray
         
         let url = URL(string: "https://www.hackingwithswift.com/samples/friendface.json")!
-        if let usersJSONArray = try? Data(contentsOf: url) {
-            do {
-                usersArray = try JSONDecoder().decode([User].self, from: usersJSONArray)
-            } catch {
-                print("This was the error: \(error.localizedDescription)")
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        // Most important
+        request.httpMethod = "GET"
+
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {
+                print("No data in response: \(error?.localizedDescription ?? "Unknown error")")
+                return
             }
-        } else {
-            print("Failed fetching usersJSON")
-        }
-        
-        self.users = usersArray
+
+            if let decodedUserList = try? JSONDecoder().decode([User].self, from: data) {
+                DispatchQueue.main.async { self.users = decodedUserList }
+            } else {
+                print("Invalid response from server")
+            }
+        }.resume()
     }
 
     func findUser(id: String) -> User? {
