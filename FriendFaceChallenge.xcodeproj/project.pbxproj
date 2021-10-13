@@ -14,8 +14,8 @@
 		E7DE2F302714F7FB005F0050 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE2F2F2714F7FB005F0050 /* Persistence.swift */; };
 		E7DE2F332714F7FB005F0050 /* FriendFaceChallenge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7DE2F312714F7FB005F0050 /* FriendFaceChallenge.xcdatamodeld */; };
 		E7DE2F3A27150ED6005F0050 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE2F3927150ED6005F0050 /* UserDetailView.swift */; };
-		E7DE2F3C27151C73005F0050 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE2F3B27151C73005F0050 /* Model.swift */; };
-		E7DE2F3E27152A74005F0050 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE2F3D27152A74005F0050 /* ViewModel.swift */; };
+		E7DE2F3C27151C73005F0050 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE2F3B27151C73005F0050 /* Structs.swift */; };
+		E7DE2F3E27152A74005F0050 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE2F3D27152A74005F0050 /* Classes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,8 +27,8 @@
 		E7DE2F2F2714F7FB005F0050 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		E7DE2F322714F7FB005F0050 /* FriendFaceChallenge.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FriendFaceChallenge.xcdatamodel; sourceTree = "<group>"; };
 		E7DE2F3927150ED6005F0050 /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
-		E7DE2F3B27151C73005F0050 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		E7DE2F3D27152A74005F0050 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		E7DE2F3B27151C73005F0050 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		E7DE2F3D27152A74005F0050 /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,10 +61,9 @@
 		E7DE2F252714F7F9005F0050 /* FriendFaceChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				E7DE2F3B27151C73005F0050 /* Model.swift */,
-				E7DE2F3D27152A74005F0050 /* ViewModel.swift */,
-				E7DE2F282714F7F9005F0050 /* ContentView.swift */,
-				E7DE2F3927150ED6005F0050 /* UserDetailView.swift */,
+				E7DE2F3F27152EC4005F0050 /* Model */,
+				E7DE2F4127152F0D005F0050 /* ViewModel */,
+				E7DE2F4027152EF4005F0050 /* View */,
 				E7DE2F2A2714F7FB005F0050 /* Assets.xcassets */,
 				E7DE2F262714F7F9005F0050 /* FriendFaceChallengeApp.swift */,
 				E7DE2F2F2714F7FB005F0050 /* Persistence.swift */,
@@ -80,6 +79,31 @@
 				E7DE2F2D2714F7FB005F0050 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E7DE2F3F27152EC4005F0050 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E7DE2F3B27151C73005F0050 /* Structs.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E7DE2F4027152EF4005F0050 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E7DE2F282714F7F9005F0050 /* ContentView.swift */,
+				E7DE2F3927150ED6005F0050 /* UserDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E7DE2F4127152F0D005F0050 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E7DE2F3D27152A74005F0050 /* Classes.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,13 +176,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7DE2F3C27151C73005F0050 /* Model.swift in Sources */,
+				E7DE2F3C27151C73005F0050 /* Structs.swift in Sources */,
 				E7DE2F332714F7FB005F0050 /* FriendFaceChallenge.xcdatamodeld in Sources */,
 				E7DE2F302714F7FB005F0050 /* Persistence.swift in Sources */,
 				E7DE2F292714F7F9005F0050 /* ContentView.swift in Sources */,
 				E7DE2F3A27150ED6005F0050 /* UserDetailView.swift in Sources */,
 				E7DE2F272714F7F9005F0050 /* FriendFaceChallengeApp.swift in Sources */,
-				E7DE2F3E27152A74005F0050 /* ViewModel.swift in Sources */,
+				E7DE2F3E27152A74005F0050 /* Classes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
