@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) var context
+    
     @State private var users = [User]()
     
     var body: some View {
@@ -17,17 +19,25 @@ struct ContentView: View {
                 ForEach(users, id: \.id) { user in
                     NavigationLink(destination: UserDetailView(users: users, user: user)) {
                         VStack(alignment: .leading) {
-                            Text(user.name)
+                            Text(user.name ?? "Unknown Name")
                                 .font(.headline)
-                            Text(user.company)
+                            Text(user.company ?? "Uknown Company")
                         }
                     }
                 }
             }
             .navigationTitle("FriendFace")
+            .onAppear(perform: fetchUsers)
             .toolbar {
-                Button(action: downloadUserList) { Image(systemName: "tray.and.arrow.down") }
-                    .disabled(users.isEmpty ? false : true)
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: deleteAllUsers) { Image(systemName: "trash") }
+                        .disabled(users.isEmpty ? true : false)
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: downloadUserList) { Image(systemName: "tray.and.arrow.down") }
+                        .disabled(users.isEmpty ? false : true)
+                }
             }
         }
     }
@@ -45,12 +55,67 @@ struct ContentView: View {
                 return
             }
 
-            if let decodedUserList = try? JSONDecoder().decode([User].self, from: data) {
-                DispatchQueue.main.async { self.users = decodedUserList }
+            
+            if let decodedUsers = try? JSONDecoder().decode([UserStruct].self, from: data) {
+//                // save users in CoreData
+                for user in decodedUsers {
+                    let newUser = User(context: context)
+                    newUser.id = user.id
+                    newUser.isActive = user.isActive
+                    newUser.name = user.name
+                    newUser.age = user.age
+                    newUser.company = user.company
+                    newUser.email = user.email
+                    newUser.address = user.address
+                    newUser.about = user.about
+                    newUser.registered = user.registered
+                    newUser.tags = user.tags
+
+                    for friend in user.friends {
+                        let newFriend = Friend(context: context)
+                        newFriend.id = friend.id
+                        newFriend.name = friend.name
+
+                        newUser.addToFriends(newFriend)
+                    }
+
+                }
+
+                saveContext()
+                
+                DispatchQueue.main.async { fetchUsers() }
             } else {
                 print("Invalid response from server")
             }
         }.resume()
+    }
+    
+    func saveContext() {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                print("Error saving context \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func fetchUsers() {
+        do {
+            users = try context.fetch(User.fetchRequest())
+        } catch {
+            print("Couldn't fetch users: \(error.localizedDescription)")
+        }
+    }
+    
+    func deleteAllUsers() {
+        for object in context.registeredObjects {
+            context.delete(object)
+        }
+        
+        saveContext()
+        
+        DispatchQueue.main.async { fetchUsers() }
     }
 }
 

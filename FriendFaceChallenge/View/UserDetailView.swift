@@ -13,20 +13,20 @@ struct UserDetailView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(user.name)
+            Text(user.name ?? "Unknown Name")
                 .font(.headline)
                 .padding(.leading, 17)
-            Text(user.email)
+            Text(user.email ?? "Unknown E-mail")
                 .padding(.leading, 17)
 
             List {
                 Section(header: Text("Friends")) {
-                    ForEach(user.friends, id: \.id) { friend in
-                        NavigationLink(destination: UserDetailView(users: users, user: findUser(id: friend.id))) {
+                    ForEach(user.friendsArray, id: \.id) { friend in
+                        NavigationLink(destination: UserDetailView(users: users, user: findUser(id: friend.id!))) {
                             VStack(alignment: .leading) {
-                                Text(friend.name)
+                                Text(friend.name ?? "Unknown Name")
                                     .font(.headline)
-                                Text(findUser(id: friend.id).company)
+                                Text(findUser(id: friend.id!).company ?? "Unknown Company")
                             }
                         }
                     }

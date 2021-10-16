@@ -7,27 +7,27 @@
 
 import Foundation
 
-struct User: Codable {
+struct UserStruct: Codable {
     let id, name, company, email, address, about, registered: String
     let isActive: Bool
-    let age: Int
+    let age: Int16
     let tags: [String]
-    let friends: [Friend]
+    let friends: [FriendStruct]
     
-    var lastName: String {
-        let nameArray = name.components(separatedBy: " ")
-        switch name.count {
-        case 0:
-            return "Unknown"
-        case 1:
-            return ""
-        default:
-            return nameArray.last!
-        }
-    }
+//    var lastName: String {
+//        let nameArray = name.components(separatedBy: " ")
+//        switch name.count {
+//        case 0:
+//            return "Unknown"
+//        case 1:
+//            return ""
+//        default:
+//            return nameArray.last!
+//        }
+//    }
 }
 
 
-struct Friend: Codable {
+struct FriendStruct: Codable {
     let id, name: String
 }
